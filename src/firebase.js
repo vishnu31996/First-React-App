@@ -1,18 +1,9 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  addDoc,
-  collection,
-  query,
-  orderBy,
-  limit,
-  getDocs,
-} from "firebase/firestore";
+import { getFirestore, doc,getDoc, setDoc, collection, query, orderBy, onSnapshot } from "firebase/firestore";
+
+
+// Update player score
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -29,50 +20,57 @@ const firebaseConfig = {
   measurementId: "G-17C6P6SWZ8"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
+
+// Optional analytics (only in browser)
 let analytics;
-if (typeof window !== "undefined") { // Only in browser
+if (typeof window !== "undefined") {
   analytics = getAnalytics(app);
 }
-
 export { analytics };
 
-// Initialize Firestore
+// --- Firestore instance ---
+const db = getFirestore(app);
 
-const db = getFirestore(app); // ✅ declare db here
+// Only update once when the game ends
+export async function updatePlayerScore(name, finalScore) {
+  const docRef = doc(db, "highscores", name);
+  const docSnap = await getDoc(docRef);
 
-// Single global highscore doc
-export async function getGlobalHighScore() {
-  const docRef = doc(db, "highscores", "constructionGame");
-  const snap = await getDoc(docRef);
-  return snap.exists() ? snap.data().highScore : 0;
-}
-export async function updateGlobalHighScoreIfHigher(score) {
-  const docRef = doc(db, "highscores", "constructionGame");
-  const snap = await getDoc(docRef);
-  if (!snap.exists() || score > snap.data().highScore) {
-    await setDoc(docRef, { highScore: score });
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    const updatedScore = finalScore > data.score ? finalScore : data.score;
+    const updatedPlays = (data.plays || 0) + 1;
+
+    await setDoc(docRef, {
+      name,
+      score: updatedScore,
+      plays: updatedPlays
+    });
+  } else {
+    // First game
+    await setDoc(docRef, { name, score: finalScore, plays: 1 });
   }
 }
 
-// Leaderboard (scalable) helpers
-export async function submitScore(name, score) {
-  return await addDoc(collection(db, "constructionGameLeaderboard"), {
-    name,
-    score,
-    created: new Date(),
+// --- Subscribe to real-time leaderboard ---
+export function subscribeLeaderboard(callback) {
+  const q = query(collection(db, "highscores"), orderBy("score", "desc"));
+  return onSnapshot(q, (snapshot) => {
+    const top = snapshot.docs.map(doc => doc.data());
+    callback(top);
   });
 }
 
-export async function getLeaderboardTop10() {
-  const q = query(
-    collection(db, "constructionGameLeaderboard"),
-    orderBy("score", "desc"),
-    limit(10)
-  );
-  const snap = await getDocs(q);
-  const list = [];
-  snap.forEach((d) => list.push({ ...d.data() }));
-  return list;
+// Check if player name exists
+export async function checkPlayerNameExists(name) {
+  const docRef = doc(db, "highscores", name);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists();
+}
+
+export async function getPlayerData(name) {
+  const docRef = doc(db, "highscores", name);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data() : { score: 0, plays: 0 };
 }
