@@ -1,0 +1,89 @@
+.uc-wrapper {
+  font-family: "Courier New", monospace;
+  text-align: center;
+  background: #111;
+  color: #fff;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.neon-sign {
+  font-size: 2rem;
+  color: #ff4500;
+  text-shadow: 0 0 8px #ff6347, 0 0 20px #ff6347;
+}
+
+.uc-text {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #ffa500;
+}
+
+.uc-button {
+  margin-top: 20px;
+  font-size: 1rem;
+  padding: 10px 20px;
+  background: #ff9900;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: monospace;
+  color: #111;
+  transition: 0.2s;
+}
+.uc-button:hover {
+  background: #ffaa33;
+}
+
+.uc-game-area {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  height: 400px;
+  margin: 0 auto;
+  background: #222;
+  border: 3px solid #ff9900;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crane {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  font-size: 40px;
+  opacity: 0.7;
+}
+
+.player {
+  position: absolute;
+  bottom: 5px;
+  font-size: 40px;
+  transition: left 0.1s linear;
+}
+
+.brick {
+  position: absolute;
+  font-size: 30px;
+  transition: top 0.05s linear; /* smooth fall */
+  text-shadow: 1px 1px 2px #000;
+}
+
+.game-over {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ff9900;
+  color: #111;
+  font-size: 1rem;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.uc-score {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #ffa500;
+}
