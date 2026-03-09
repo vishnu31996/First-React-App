@@ -1,15 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import ChatInterface from "./ChatInterface";
 import "./ChatWidget.css";
 
 export default function ChatWidget({ initialMood }) {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const handleOpenChat = () => {
-    navigate("/chat");
-    setIsOpen(false);
-  };
 
   return (
     <>
@@ -22,28 +16,19 @@ export default function ChatWidget({ initialMood }) {
         💬
       </button>
 
-      {/* Chat Widget Menu */}
+      {/* Chat Modal */}
       {isOpen && (
-        <div className="chat-widget-menu">
-          <h3>MoodMatch Chat</h3>
-          <p>Talk to me about your mood and get personalized suggestions!</p>
-          
-          {initialMood ? (
-            <button className="widget-action-btn" onClick={handleOpenChat}>
-              Open Chat →
+        <div className="chat-modal-overlay" onClick={() => setIsOpen(false)}>
+          <div className="chat-modal" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="modal-close-btn" 
+              onClick={() => setIsOpen(false)}
+              title="Close"
+            >
+              ✕
             </button>
-          ) : (
-            <div className="widget-message">
-              <p>🎭 Select a mood first to start chatting!</p>
-              <a href="/mood" className="widget-action-btn">
-                Choose Mood →
-              </a>
-            </div>
-          )}
-
-          <button className="widget-close-btn" onClick={() => setIsOpen(false)}>
-            ✕
-          </button>
+            <ChatInterface />
+          </div>
         </div>
       )}
     </>

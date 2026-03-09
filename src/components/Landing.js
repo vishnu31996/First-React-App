@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ChatInterface from "./ChatInterface";
 import "./Landing.css";
 
 export default function Landing() {
@@ -57,12 +56,9 @@ export default function Landing() {
         </div>
       </div>
 
-      <div className="chat-section">
-        <ChatInterface />
-      </div>
-
       <footer className="landing-footer">
         <p>✨ 100% Free • No Login Required • AI-Powered Recommendations</p>
+        <p className="chat-hint">💬 Click the chat bubble to start with me!</p>
       </footer>
     </div>
   );
