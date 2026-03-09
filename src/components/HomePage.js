@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <div className="container">
       <div className="background"></div>
-      <h1 className="title">Hey you, Welcome :)</h1>
+      <h1 className="title">Hii Morgan! 👋</h1>
       <p className="date-display">📅 {today}</p>
       <h2 className="subtitle">
         Today is a great day to build something amazing! 🚀 <br></br> 
