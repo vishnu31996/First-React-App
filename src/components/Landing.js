@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ChatInterface from "./ChatInterface";
 import "./Landing.css";
 
 export default function Landing() {
@@ -54,6 +55,10 @@ export default function Landing() {
           <Link to="/mood" className="preview-card excited">🤩 Excited</Link>
           <Link to="/mood" className="preview-card focused">🧠 Focused</Link>
         </div>
+      </div>
+
+      <div className="chat-section">
+        <ChatInterface />
       </div>
 
       <footer className="landing-footer">
