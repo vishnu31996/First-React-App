@@ -4,6 +4,7 @@ import Landing from "./components/Landing";
 import MoodSelector from "./components/MoodSelector";
 import Results from "./components/Results";
 import ChatBot from "./components/ChatBot";
+import ChatWidget from "./components/ChatWidget";
 import "./App.css";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
 
   return (
     <Router>
+      <ChatWidget initialMood={selectedMood} />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route 

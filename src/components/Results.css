@@ -267,10 +267,7 @@
 .cta-section {
   margin: 2rem 0 3rem 0;
   animation: slideIn 1s ease;
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
+  text-align: center;
 }
 
 .explore-again {
@@ -313,10 +310,7 @@
   height: 300px;
 }
 
-.explore-again.chat-btn {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-}
+
 
 .error {
   color: #fff;

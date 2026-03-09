@@ -121,9 +121,6 @@ export default function Results({ mood, recommendations }) {
       </div>
 
       <div className="cta-section">
-        <Link to="/chat">
-          <button className="explore-again chat-btn">💬 Chat with Me</button>
-        </Link>
         <Link to="/mood">
           <button className="explore-again">Explore Another Mood ✨</button>
         </Link>

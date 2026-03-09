@@ -47,12 +47,12 @@ export default function Landing() {
         </div>
 
         <div className="mood-preview">
-          <div className="preview-card happy">😊 Happy</div>
-          <div className="preview-card sad">😢 Sad</div>
-          <div className="preview-card anxious">😰 Anxious</div>
-          <div className="preview-card calm">😌 Calm</div>
-          <div className="preview-card excited">🤩 Excited</div>
-          <div className="preview-card focused">🧠 Focused</div>
+          <Link to="/mood" className="preview-card happy">😊 Happy</Link>
+          <Link to="/mood" className="preview-card sad">😢 Sad</Link>
+          <Link to="/mood" className="preview-card anxious">😰 Anxious</Link>
+          <Link to="/mood" className="preview-card calm">😌 Calm</Link>
+          <Link to="/mood" className="preview-card excited">🤩 Excited</Link>
+          <Link to="/mood" className="preview-card focused">🧠 Focused</Link>
         </div>
       </div>
 
