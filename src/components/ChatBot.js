@@ -3,19 +3,8 @@ import { Link } from "react-router-dom";
 import "./ChatBot.css";
 
 const MAX_MESSAGES = 15; // Rate limit: max 15 messages per session
-const SYSTEM_PROMPT = `You are MoodMatch Companion, a friendly and empathetic AI assistant helping users find content and activities based on their moods.
-
-IMPORTANT GUARDRAILS:
-1. Stay focused on mood recommendations, entertainment, wellness, and mental health
-2. Do NOT provide medical advice - suggest consulting a professional for serious mental health concerns
-3. Do NOT engage in personal relationships or romantic conversations
-4. Do NOT provide financial advice or investment recommendations
-5. Do NOT help with illegal activities
-6. Keep responses concise (2-3 sentences max)
-7. Be warm, supportive, and non-judgmental
-8. If asked something outside your scope, politely redirect to mood/entertainment recommendations
-
-You have access to movies, music, books, and activities. Suggest based on the user's mood and what they're feeling.`;
+// Safety guardrails are enforced in generateBotResponse function below
+// Prevents: medical advice, romance, financial advice, illegal activities
 
 export default function ChatBot({ initialMood }) {
   const [messages, setMessages] = useState([
