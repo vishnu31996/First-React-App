@@ -56,7 +56,7 @@ export default function Results({ mood, recommendations }) {
               <div key={idx} className="rec-card">
                 <div className="rec-title">{item.title}</div>
                 <p className="rec-reason">💡 {item.reason}</p>
-                <button className="watch-btn">Watch Now</button>
+                <button className="watch-btn" onClick={() => window.open('https://www.google.com/search?q=' + encodeURIComponent(item.title + ' watch online'))}>Watch Now</button>
               </div>
             ))}
           </div>
@@ -69,7 +69,7 @@ export default function Results({ mood, recommendations }) {
               <div key={idx} className="rec-card">
                 <div className="rec-title">{item.title}</div>
                 <p className="rec-reason">💡 {item.reason}</p>
-                <button className="watch-btn">Listen Now</button>
+                <button className="watch-btn" onClick={() => window.open('https://open.spotify.com/search/' + encodeURIComponent(item.title))}>Listen Now</button>
               </div>
             ))}
           </div>
@@ -82,7 +82,7 @@ export default function Results({ mood, recommendations }) {
               <div key={idx} className="rec-card">
                 <div className="rec-title">{item.title}</div>
                 <p className="rec-reason">💡 {item.reason}</p>
-                <button className="watch-btn">Read Now</button>
+                <button className="watch-btn" onClick={() => window.open('https://www.goodreads.com/search?q=' + encodeURIComponent(item.title))}>Read Now</button>
               </div>
             ))}
           </div>

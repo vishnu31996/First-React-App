@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
+import { generateRecommendations } from "../utils/recommendationEngine";
 import "./MoodSelector.css";
 
 const MOODS = [
@@ -14,7 +15,6 @@ const MOODS = [
   { emoji: "😡", label: "Angry", color: "#D63031" },
   { emoji: "🥰", label: "Loved", color: "#FD79A8" },
   { emoji: "😎", label: "Confident", color: "#FDCB6E" },
-  { emoji: "😕", label: "Confused", color: "#DFE6E9" },
 ];
 
 const INTENSITY_LEVELS = [
@@ -29,43 +29,22 @@ export default function MoodSelector({ setSelectedMood, setRecommendations }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const generateRecommendations = async () => {
+  const generateRecommendationsAndNavigate = async () => {
     if (!selectedMood) return;
 
     setLoading(true);
 
-    // Mock AI recommendations (in production, this would call OpenAI API)
-    const recommendations = {
-      movies: [
-        { title: "The Shawshank Redemption", type: "Movie", reason: "Uplifting and inspiring" },
-        { title: "Inception", type: "Movie", reason: "Mind-bending and engaging" },
-        { title: "La La Land", type: "Movie", reason: "Beautiful and dreamy" },
-      ],
-      music: [
-        { title: "Good as Hell - Lizzo", type: "Song", reason: "Uplifting vibes" },
-        { title: "Blinding Lights - The Weeknd", type: "Song", reason: "Energetic rhythm" },
-        { title: "Night Changes - One Direction", type: "Song", reason: "Smooth and calming" },
-      ],
-      books: [
-        { title: "Atomic Habits", type: "Book", reason: "Practical and motivating" },
-        { title: "The Midnight Library", type: "Book", reason: "Reflective and hopeful" },
-        { title: "Where the Crawdads Sing", type: "Book", reason: "Beautiful storytelling" },
-      ],
-      activities: [
-        { title: "Take a walk in nature", type: "Activity", reason: "Refresh your mind" },
-        { title: "Practice meditation", type: "Activity", reason: "Find inner peace" },
-        { title: "Journal your thoughts", type: "Activity", reason: "Process emotions" },
-      ],
-    };
+    // Generate dynamic recommendations based on mood and intensity
+    const recommendations = generateRecommendations(selectedMood, intensity);
 
     setSelectedMood({ mood: selectedMood, intensity });
     setRecommendations(recommendations);
 
-    // Simulate API delay
+    // Simulate AI thinking delay
     setTimeout(() => {
       setLoading(false);
       navigate("/results");
-    }, 1500);
+    }, 1200);
   };
 
   return (
@@ -112,7 +91,7 @@ export default function MoodSelector({ setSelectedMood, setRecommendations }) {
 
       <button
         className={`generate-button ${selectedMood ? "active" : ""}`}
-        onClick={generateRecommendations}
+        onClick={generateRecommendationsAndNavigate}
         disabled={!selectedMood || loading}
       >
         {loading ? "✨ Finding your match..." : "✨ Get Recommendations"}
