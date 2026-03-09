@@ -72,67 +72,73 @@ export default function ChatBot({ initialMood }) {
 
   const generateBotResponse = (userInput, mood) => {
     const lowerInput = userInput.toLowerCase();
-    const responses = {
-      greeting: [
-        "Great to chat with you! 😊 Tell me more about what you're feeling and I'll find perfect recommendations.",
-        "Happy to help! 🎭 What aspect of your mood would you like to explore?",
-      ],
-      movie: [
-        "Amazing! Based on your mood, I'd suggest checking out some great films in the recommendations above. Want something specific?",
-        "Movies are perfect for that mood! Scroll up to see what I've curated for you.",
-      ],
-      music: [
-        "Music is such a powerful mood shifter! 🎵 Spotify links above have some perfect playlists for your vibe.",
-        "Great idea! The music recommendations above should really match your current mood.",
-      ],
-      book: [
-        "Reading is wonderful for the soul! 📚 Check out the book suggestions above that match your mood.",
-        "Books can be so therapeutic! The recommendations are tailored just for how you're feeling.",
-      ],
-      activity: [
-        "I love that energy! 🎯 The activity suggestions above are designed to help you make the most of your mood.",
-        "Doing something can really help shift your mindset. Try one of the activities I suggested!",
-      ],
-      sad: [
-        "It's okay to feel sad. Sometimes the best thing is to let yourself feel it. 💙 The recommendations are there when you're ready.",
-        "Sadness is part of being human. Consider reaching out to someone you trust or trying one of the calming activities above.",
-      ],
-      anxious: [
-        "Anxiety can be tough. Remember to breathe. 🌬️ The calming recommendations above might help ease your mind.",
-        "When you're anxious, grounding techniques help. Try one of the mindfulness activities I suggested.",
-      ],
-      help: [
-        "I'm here to help! 🤝 Ask me about movies, music, books, or activities for your mood.",
-        "Happy to assist! What would you like recommendations on?",
-      ],
+    
+    // Import recommendations from database (in real app, would be from recommendationEngine)
+    const mockRecommendations = {
+      Happy: { movies: ["The Grand Budapest Hotel", "Knives Out", "Spirited Away"], music: ["Walking on Sunshine", "Good as Hell - Lizzo", "Don't Stop Me Now - Queen"], books: ["The House in the Cerulean Sea", "Eleanor Oliphant Is Completely Fine", "A Man Called Ove"], activities: ["Dance like nobody's watching", "Call a friend and laugh together", "Cook your favorite meal"] },
+      Sad: { movies: ["Life is Beautiful", "About Time", "Moonlight"], music: ["The Night We Met - Lord Huron", "Skinny Love - Bon Iver", "Hurt - Johnny Cash"], books: ["The Fault in Our Stars", "A Little Life", "Crying in H Mart"], activities: ["Write in a journal", "Listen to sad songs", "Call someone you trust"] },
+      Anxious: { movies: ["Mr. Rogers Documentary", "Amélie", "Spirited Away"], music: ["Calm Down - Rema", "Weightless - Marconi Union", "Ambient by Eno"], books: ["The Courage to Be Disliked", "Educated", "Braiding Sweetgrass"], activities: ["Practice deep breathing", "Try meditation or yoga", "Go outside in nature"] },
+      Calm: { movies: ["Lost in Translation", "My Neighbor Totoro", "A Quiet Place"], music: ["Spiegel im Spiegel - Arvo Pärt", "Gymnopédies - Erik Satie", "Moon River"], books: ["Norwegian Wood - Murakami", "The Remains of the Day", "Braiding Sweetgrass"], activities: ["Meditate for 10 minutes", "Go for a slow walk", "Read poetry"] },
+      Excited: { movies: ["Top Gun: Maverick", "Mad Max: Fury Road", "The Greatest Showman"], music: ["Uptown Funk", "Shut Up and Dance", "Mr. Brightside - The Killers"], books: ["Shoe Dog - Phil Knight", "The Autobiography of Malcolm X", "Grit"], activities: ["Go for a run or workout", "Start a new project", "Plan something fun"] },
+      Focused: { movies: ["The Social Network", "Whiplash", "Steve Jobs"], music: ["Lo-fi Hip Hop Mix", "Focus Spotify Playlist", "Hans Zimmer Scores"], books: ["Deep Work - Cal Newport", "Atomic Habits - James Clear", "The War of Art"], activities: ["Work in a quiet space", "Use the Pomodoro Technique", "Turn off notifications"] },
     };
 
-    if (lowerInput.includes("hello") || lowerInput.includes("hi") || lowerInput.includes("hey")) {
-      return responses.greeting[Math.floor(Math.random() * responses.greeting.length)];
-    } else if (lowerInput.includes("movie") || lowerInput.includes("film") || lowerInput.includes("watch")) {
-      return responses.movie[Math.floor(Math.random() * responses.movie.length)];
-    } else if (lowerInput.includes("music") || lowerInput.includes("song") || lowerInput.includes("playlist")) {
-      return responses.music[Math.floor(Math.random() * responses.music.length)];
-    } else if (lowerInput.includes("book") || lowerInput.includes("read") || lowerInput.includes("reading")) {
-      return responses.book[Math.floor(Math.random() * responses.book.length)];
-    } else if (lowerInput.includes("activity") || lowerInput.includes("do") || lowerInput.includes("what to do")) {
-      return responses.activity[Math.floor(Math.random() * responses.activity.length)];
-    } else if (lowerInput.includes("sad") || lowerInput.includes("sad") || lowerInput.includes("unhappy")) {
-      return responses.sad[Math.floor(Math.random() * responses.sad.length)];
-    } else if (lowerInput.includes("anxious") || lowerInput.includes("nervous") || lowerInput.includes("worried")) {
-      return responses.anxious[Math.floor(Math.random() * responses.anxious.length)];
-    } else if (lowerInput.includes("help") || lowerInput.includes("question")) {
-      return responses.help[Math.floor(Math.random() * responses.help.length)];
-    } else {
-      const generic = [
-        "That's interesting! 🤔 Tell me more about how that makes you feel.",
-        "I hear you. Would any of the recommendations above help with that? 😊",
-        "Thanks for sharing! Is there anything specific you'd like me to suggest?",
-        "Got it! Based on your mood, the recommendations above might be just what you need. 💜",
-        "Interesting perspective! Want me to suggest something specific for your current mood?",
-      ];
-      return generic[Math.floor(Math.random() * generic.length)];
+    const currentMoodRecs = mood && mockRecommendations[mood.mood?.label] ? mockRecommendations[mood.mood?.label] : null;
+
+    // Movie/Film recommendations
+    if (lowerInput.includes("movie") || lowerInput.includes("film") || lowerInput.includes("watch") || lowerInput.includes("cinema")) {
+      if (currentMoodRecs) {
+        const movies = currentMoodRecs.movies.slice(0, 2).join(", ");
+        return `🎬 Perfect! For your mood, I'd recommend: ${movies}. These should really resonate with how you're feeling right now!`;
+      }
+      return "🎬 For movies, select a mood first and I'll give you personalized suggestions!";
     }
+
+    // Music recommendations
+    if (lowerInput.includes("music") || lowerInput.includes("song") || lowerInput.includes("playlist") || lowerInput.includes("listen")) {
+      if (currentMoodRecs) {
+        const music = currentMoodRecs.music.slice(0, 2).join(", ");
+        return `🎵 Great choice! Try: ${music}. These should match your current vibe perfectly!`;
+      }
+      return "🎵 For music suggestions, select a mood first and I'll recommend some perfect tracks!";
+    }
+
+    // Book recommendations
+    if (lowerInput.includes("book") || lowerInput.includes("read") || lowerInput.includes("reading") || lowerInput.includes("novel")) {
+      if (currentMoodRecs) {
+        const books = currentMoodRecs.books.slice(0, 2).join(", ");
+        return `📚 I love that! Check out: ${books}. Both are perfect for what you're feeling!`;
+      }
+      return "📚 For book suggestions, choose a mood first and I'll recommend some great reads!";
+    }
+
+    // Activity recommendations
+    if (lowerInput.includes("activity") || lowerInput.includes("do") || lowerInput.includes("what to do") || lowerInput.includes("thing to do")) {
+      if (currentMoodRecs) {
+        const activity = currentMoodRecs.activities[Math.floor(Math.random() * currentMoodRecs.activities.length)];
+        return `🎯 Great idea! Try this: ${activity}. It should help shift your mood in a positive way! 💜`;
+      }
+      return "🎯 For activities, select a mood first and I'll suggest something perfect for you!";
+    }
+
+    // Greeting
+    if (lowerInput.includes("hello") || lowerInput.includes("hi") || lowerInput.includes("hey")) {
+      return "Hey there! 👋 Tell me what you're looking for — movies, music, books, or activities? I'll give you personalized recommendations based on your mood!";
+    }
+
+    // Help
+    if (lowerInput.includes("help") || lowerInput.includes("how") || lowerInput.includes("what can")) {
+      return "I can help you find 🎬 movies, 🎵 music, 📚 books, or 🎯 activities that match your mood! Just ask me for any of these and I'll give real suggestions!";
+    }
+
+    // Default: ask what they want
+    const defaults = [
+      "What are you in the mood for? 🎬 Movies, 🎵 music, 📚 books, or 🎯 activities?",
+      "Tell me what sounds good to you and I'll recommend something! 💜",
+      "What can I suggest for you right now? Movies, music, books, or activities?",
+      "Looking for something specific? Let me know and I'll give you real recommendations! ✨",
+    ];
+    return defaults[Math.floor(Math.random() * defaults.length)];
   };
 
   return (
