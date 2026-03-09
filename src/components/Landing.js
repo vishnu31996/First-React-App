@@ -1,0 +1,64 @@
+import { Link } from "react-router-dom";
+import "./Landing.css";
+
+export default function Landing() {
+  return (
+    <div className="landing-container">
+      <div className="stars"></div>
+      
+      <nav className="landing-nav">
+        <h1 className="brand">🎭 MoodMatch</h1>
+        <p className="tagline">Find your vibe in seconds</p>
+      </nav>
+
+      <div className="landing-content">
+        <div className="hero-section">
+          <h2 className="hero-title">
+            Tell us your <span className="highlight">mood</span>.<br />
+            We'll find your <span className="highlight">perfect match</span>.
+          </h2>
+          
+          <p className="hero-description">
+            Movies, music, books, and activities tailored to exactly how you're feeling right now.
+          </p>
+
+          <Link to="/mood">
+            <button className="cta-button">✨ Start Exploring</button>
+          </Link>
+
+          <div className="features">
+            <div className="feature">
+              <span className="feature-icon">🎬</span>
+              <p>Movies & Shows</p>
+            </div>
+            <div className="feature">
+              <span className="feature-icon">🎵</span>
+              <p>Music Playlists</p>
+            </div>
+            <div className="feature">
+              <span className="feature-icon">📚</span>
+              <p>Books & Reading</p>
+            </div>
+            <div className="feature">
+              <span className="feature-icon">🎯</span>
+              <p>Activities</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mood-preview">
+          <div className="preview-card happy">😊 Happy</div>
+          <div className="preview-card sad">😢 Sad</div>
+          <div className="preview-card anxious">😰 Anxious</div>
+          <div className="preview-card calm">😌 Calm</div>
+          <div className="preview-card excited">🤩 Excited</div>
+          <div className="preview-card focused">🧠 Focused</div>
+        </div>
+      </div>
+
+      <footer className="landing-footer">
+        <p>✨ 100% Free • No Login Required • AI-Powered Recommendations</p>
+      </footer>
+    </div>
+  );
+}

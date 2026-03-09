@@ -1,13 +1,26 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./components/HomePage";
-import UnderConstructionGame from "./components/game/UnderConstructionGame";
+import { useState } from "react";
+import Landing from "./components/Landing";
+import MoodSelector from "./components/MoodSelector";
+import Results from "./components/Results";
+import "./App.css";
 
 function App() {
+  const [selectedMood, setSelectedMood] = useState(null);
+  const [recommendations, setRecommendations] = useState(null);
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/game" element={<UnderConstructionGame />} />
+        <Route path="/" element={<Landing />} />
+        <Route 
+          path="/mood" 
+          element={<MoodSelector setSelectedMood={setSelectedMood} setRecommendations={setRecommendations} />} 
+        />
+        <Route 
+          path="/results" 
+          element={<Results mood={selectedMood} recommendations={recommendations} />} 
+        />
       </Routes>
     </Router>
   );
