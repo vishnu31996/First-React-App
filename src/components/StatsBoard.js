@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getHistory } from "../utils/localStorage";
 import "./StatsBoard.css";
 
@@ -23,6 +24,7 @@ export default function StatsBoard() {
 
   return (
     <div className="stats-container">
+      <Link to="/" className="back-nav">← Home</Link>
       <h1>📊 Your Mood Stats</h1>
 
       <div className="stats-grid">

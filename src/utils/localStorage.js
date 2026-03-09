@@ -20,3 +20,9 @@ export const saveHistory = (mood) => {
 export const getHistory = () => {
   return JSON.parse(localStorage.getItem("moodmatch_history")) || [];
 };
+
+export const removeFavorite = (title) => {
+  const favorites = JSON.parse(localStorage.getItem("moodmatch_favorites")) || [];
+  const updated = favorites.filter(f => f.title !== title);
+  localStorage.setItem("moodmatch_favorites", JSON.stringify(updated));
+};

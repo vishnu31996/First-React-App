@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getFavorites } from "../utils/localStorage";
+import { Link } from "react-router-dom";
+import { getFavorites, removeFavorite } from "../utils/localStorage";
 import "./FavoritesManager.css";
 
 export default function FavoritesManager() {
@@ -25,6 +26,7 @@ export default function FavoritesManager() {
 
   return (
     <div className="favorites-container">
+      <Link to="/" className="back-nav">← Home</Link>
       <h1>❤️ Your Favorites</h1>
       <p className="fav-count">{filtered.length} saved items</p>
 
@@ -41,6 +43,7 @@ export default function FavoritesManager() {
           <div className="favorites-grid">
             {filtered.map((item, i) => (
               <div key={i} className="favorite-card">
+                <button className="remove-fav-btn" onClick={() => { removeFavorite(item.title); setFavorites(getFavorites()); }}>✕</button>
                 <span className="fav-emoji">{typeEmojis[item.type]}</span>
                 <h3>{item.title}</h3>
                 <p>{item.reason}</p>
