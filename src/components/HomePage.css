@@ -31,6 +31,18 @@
   animation: fadeIn 2s ease-in-out;
 }
 
+.date-display {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #1709af;
+  font-weight: bold;
+  animation: fadeIn 2.5s ease-in-out;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 .subtitle {
   font-size: 1.2rem;
   margin-bottom: 30px;
