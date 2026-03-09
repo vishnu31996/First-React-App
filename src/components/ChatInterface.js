@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { generateRecommendations } from "../utils/recommendationEngine";
+import { saveFavorite, getFavorites, saveHistory } from "../utils/localStorage";
 import "./ChatInterface.css";
 
 const MOODS = [
@@ -20,7 +21,7 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hey! 👋 I'm your MoodMatch AI. Tell me how you're feeling, and I'll find movies, music, books, and activities that match your vibe.",
+      text: "Hey! 👋 I'm your MoodMatch AI. Tell me how you're feeling, and I'll find movies, music, books, and activities that match your vibe. 💾 Save your favorites!",
       sender: "bot",
       type: "text",
     },
@@ -29,7 +30,18 @@ export default function ChatInterface() {
   const [loading, setLoading] = useState(false);
   const [selectedMood, setSelectedMood] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
+  const [favorites, setFavorites] = useState(getFavorites());
   const messagesEndRef = useRef(null);
+
+  const handleSaveFavorite = (item, type) => {
+    saveFavorite(item, type);
+    setFavorites(getFavorites());
+    alert(`✅ Saved to favorites!`);
+  };
+
+  const isFavorited = (title) => {
+    return favorites.some(f => f.title === title);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -41,6 +53,7 @@ export default function ChatInterface() {
 
   const handleMoodSelect = (mood) => {
     setSelectedMood(mood);
+    saveHistory(mood); // Save to history
     
     // Add user message
     const userMsg = {
@@ -60,7 +73,7 @@ export default function ChatInterface() {
     setTimeout(() => {
       const botMsg = {
         id: messages.length + 2,
-        text: `Perfect! I found some great options for your ${mood.label} mood. Here are my top picks:`,
+        text: `Perfect! I found some great options for your ${mood.label} mood. Click ❤️ to save favorites!`,
         sender: "bot",
         type: "text",
       };
@@ -153,6 +166,9 @@ export default function ChatInterface() {
                       <div key={i} className="rec-item">
                         <strong>{m.title}</strong>
                         <p>{m.reason}</p>
+                        <button className="fav-btn" onClick={() => handleSaveFavorite(m, 'movie')}>
+                          {isFavorited(m.title) ? "❤️" : "🤍"} Save
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -162,6 +178,9 @@ export default function ChatInterface() {
                       <div key={i} className="rec-item">
                         <strong>{m.title}</strong>
                         <p>{m.reason}</p>
+                        <button className="fav-btn" onClick={() => handleSaveFavorite(m, 'music')}>
+                          {isFavorited(m.title) ? "❤️" : "🤍"} Save
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -171,6 +190,9 @@ export default function ChatInterface() {
                       <div key={i} className="rec-item">
                         <strong>{b.title}</strong>
                         <p>{b.reason}</p>
+                        <button className="fav-btn" onClick={() => handleSaveFavorite(b, 'book')}>
+                          {isFavorited(b.title) ? "❤️" : "🤍"} Save
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -180,6 +202,9 @@ export default function ChatInterface() {
                       <div key={i} className="rec-item">
                         <strong>{a.title}</strong>
                         <p>{a.reason}</p>
+                        <button className="fav-btn" onClick={() => handleSaveFavorite(a, 'activity')}>
+                          {isFavorited(a.title) ? "❤️" : "🤍"} Save
+                        </button>
                       </div>
                     ))}
                   </div>

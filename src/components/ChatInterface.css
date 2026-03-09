@@ -146,6 +146,24 @@
   font-size: 0.8rem;
   opacity: 0.8;
   color: #ddd;
+  margin-bottom: 0.5rem;
+}
+
+.fav-btn {
+  background: rgba(233, 69, 96, 0.2);
+  border: 1px solid rgba(233, 69, 96, 0.4);
+  color: #ff6b9d;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.fav-btn:hover {
+  background: rgba(233, 69, 96, 0.4);
+  border-color: rgba(233, 69, 96, 0.6);
 }
 
 /* Mood Selector in Chat */
