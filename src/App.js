@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Landing from "./components/Landing";
 import MoodSelector from "./components/MoodSelector";
 import Results from "./components/Results";
