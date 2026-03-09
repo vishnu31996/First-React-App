@@ -3,6 +3,7 @@ import { useState } from "react";
 import Landing from "./components/Landing";
 import MoodSelector from "./components/MoodSelector";
 import Results from "./components/Results";
+import ChatBot from "./components/ChatBot";
 import "./App.css";
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
         <Route 
           path="/results" 
           element={<Results mood={selectedMood} recommendations={recommendations} />} 
+        />
+        <Route 
+          path="/chat" 
+          element={<ChatBot initialMood={selectedMood} />} 
         />
       </Routes>
     </Router>
