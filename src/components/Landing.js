@@ -9,6 +9,10 @@ export default function Landing() {
       <nav className="landing-nav">
         <h1 className="brand">🎭 MoodMatch</h1>
         <p className="tagline">Find your vibe in seconds</p>
+        <div className="nav-links">
+          <Link to="/favorites" className="nav-link">❤️ Favorites</Link>
+          <Link to="/stats" className="nav-link">📊 Stats</Link>
+        </div>
       </nav>
 
       <div className="landing-content">
