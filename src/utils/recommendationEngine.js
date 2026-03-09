@@ -420,6 +420,52 @@ const recommendationDatabase = {
     ],
   },
 
+  Bored: {
+    movies: [
+      { title: "Fast & Furious 9", reason: "High-octane action" },
+      { title: "Dune", reason: "Epic and immersive" },
+      { title: "Avatar", reason: "Breathtaking visuals" },
+      { title: "The Matrix", reason: "Mind-bending classic" },
+    ],
+    music: [
+      { title: "Blinding Lights - The Weeknd", reason: "Energetic and catchy" },
+      { title: "Levitating - Dua Lipa", reason: "Uplifting vibes" },
+      { title: "Thunder - Imagine Dragons", reason: "Powerful energy" },
+      { title: "Kick It - NCT 127", reason: "High-energy track" },
+    ],
+    books: [
+      { title: "The Hunger Games", reason: "Page-turner" },
+      { title: "Ready Player One", reason: "Immersive adventure" },
+      { title: "Ender's Game", reason: "Fast-paced sci-fi" },
+    ],
+    activities: [
+      { title: "Play online multiplayer games", reason: "Interactive fun" },
+      { title: "Learn something new on YouTube", reason: "Engaging content" },
+      { title: "Try cooking a new recipe", reason: "Creative challenge" },
+    ],
+  },
+
+  Motivated: {
+    movies: [
+      { title: "Rocky", reason: "Ultimate motivational" },
+      { title: "The Pursuit of Happyness", reason: "Inspiring true story" },
+      { title: "Whiplash", reason: "Drive & excellence" },
+    ],
+    music: [
+      { title: "Eye of the Tiger - Survivor", reason: "Iconic motivation" },
+      { title: "Don't Stop Believin' - Journey", reason: "Never give up" },
+      { title: "Lose Yourself - Eminem", reason: "Pure determination" },
+    ],
+    books: [
+      { title: "Atomic Habits", reason: "Actionable growth" },
+      { title: "Can't Hurt Me - David Goggins", reason: "Mental toughness" },
+    ],
+    activities: [
+      { title: "Set and write down goals", reason: "Clarify your vision" },
+      { title: "Do your hardest task first", reason: "Momentum builder" },
+    ],
+  },
+
   Thoughtful: {
     movies: [
       { title: "Arrival", reason: "Intellectually profound" },

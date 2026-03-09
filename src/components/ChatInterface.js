@@ -15,6 +15,8 @@ const MOODS = [
   { emoji: "😡", label: "Angry", color: "#D63031" },
   { emoji: "🥰", label: "Loved", color: "#FD79A8" },
   { emoji: "😎", label: "Confident", color: "#FDCB6E" },
+  { emoji: "😑", label: "Bored", color: "#DFE6E9" },
+  { emoji: "🔥", label: "Motivated", color: "#FF7F50" },
 ];
 
 export default function ChatInterface() {
